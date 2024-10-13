@@ -1,5 +1,8 @@
 # Etapa 1: Construir la aplicación usando Gradle
-FROM gradle:8.10.0-jdk17 AS build
+FROM gradle:8.10.0-jdk21 AS build
+
+# Etapa 1: Construir la aplicación usando Gradle
+FROM gradle:8.10.0-jdk21 AS build
 
 # Configurar el directorio de trabajo dentro del contenedor
 WORKDIR /app
@@ -8,6 +11,9 @@ WORKDIR /app
 COPY build.gradle settings.gradle gradlew ./
 COPY gradle ./gradle
 COPY src ./src
+
+# Dar permisos de ejecución al script gradlew
+RUN chmod +x gradlew
 
 # Construir el proyecto
 RUN ./gradlew build -x test
